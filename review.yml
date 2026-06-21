@@ -1,0 +1,66 @@
+aid: charliehr
+name: CharlieHR
+review:
+  question: Does CharlieHR expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. CharlieHR exposes only a synchronous,
+    read-oriented REST (HTTPS) API. No WebSocket, Server-Sent Events, or other
+    event-driven streaming transport is documented, so there is no in-scope
+    async surface to model.
+findings:
+  summary: |
+    CharlieHR does not publish a documented public WebSocket API. The CharlieHR
+    API is a REST (HTTPS) interface under https://charliehr.com/api/v1, scoped
+    to a single authenticated company, secured with OAuth 2.0 (Client ID /
+    Client Secret exchanged for an access token sent in the Authorization
+    header). Documented resources are read (GET) endpoints for team members,
+    leave requests, leave allowances, and company structure (offices and
+    teams). CharlieHR's API does not natively support webhooks, and no
+    realtime, bidirectional, or streaming (ws:// or wss://) endpoint is
+    documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://charliehr.com/api/v1
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      documented: false
+      note: CharlieHR's API does not natively support webhooks per public documentation as of the review date; real-time updates require polling or a third-party iPaaS connector.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in CharlieHR's API documentation as of the review date.
+  endpointsConfirmedRest:
+    - GET https://charliehr.com/api/v1/team_members
+    - GET https://charliehr.com/api/v1/team_members/{id}
+    - GET https://charliehr.com/api/v1/team_members/{id}/notes
+    - GET https://charliehr.com/api/v1/team_members/{id}/leave_requests
+    - GET https://charliehr.com/api/v1/team_members/{id}/leave_allowance
+    - GET https://charliehr.com/api/v1/leave_requests
+    - GET https://charliehr.com/api/v1/leave_requests/{id}
+    - GET https://charliehr.com/api/v1/leave_allowances
+    - GET https://charliehr.com/api/v1/company
+    - GET https://charliehr.com/api/v1/offices
+    - GET https://charliehr.com/api/v1/offices/{id}
+    - GET https://charliehr.com/api/v1/teams
+    - GET https://charliehr.com/api/v1/teams/{id}
+sources:
+  - url: https://www.charliehr.com/api_docs/
+    type: Documentation
+    note: Official CharlieHR API documentation; REST endpoints, OAuth 2.0 auth, no WebSocket mentioned.
+  - url: https://www.charliehr.com/pricing/
+    type: Pricing
+    note: Headcount-based subscription pricing; API included with the platform.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or other event-driven protocol surface exists, and webhooks
+    are not natively supported. No AsyncAPI document was authored because there
+    is no documented async transport to model. The apis.yml catalog reflects
+    the documented REST surface only.

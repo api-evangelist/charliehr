@@ -1,0 +1,93 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: CharlieHR
+providerId: charliehr
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- HR
+- HRIS
+- People
+- Leave
+- Time Off
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of CharlieHR spend. CharlieHR bills a monthly subscription per
+  company, stepped by team-member headcount bracket, plus optional add-ons
+  (Charlie Recruit, Charlie Advice). The REST API is included with the platform
+  subscription and is not separately metered, so the primary cost driver is
+  headcount, not API usage. Prices are in GBP and exclude UK VAT (+20%).
+notes: >-
+  Pricing brackets and add-on rates change; verify against the CharlieHR pricing
+  page during reconciliation. Because billing is headcount-based rather than
+  usage-based, cost optimization centers on right-sizing seats and add-ons.
+sources:
+- https://www.charliehr.com/pricing/
+- https://www.charliehr.com/api_docs/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: CharlieHR
+serviceCategory: Business Applications
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: GBP
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: CharlieHR
+  ServiceCategory: Business Applications
+  ProviderName: CharlieHR
+  PublisherName: CharlieHR
+  InvoiceIssuerName: CharlieHR
+  BillingCurrency: GBP
+  ChargeCategory: Purchase
+  PricingCategory: Subscription
+meters:
+- name: platform_subscription
+  description: Monthly Charlie HR platform subscription, priced by headcount bracket.
+  unit: subscription
+  aggregation: max
+  dimensions:
+  - company
+  - headcount_bracket
+- name: team_member_count
+  description: Number of team members in the company, which determines the pricing bracket.
+  unit: team_members
+  aggregation: max
+  dimensions:
+  - company
+- name: recruit_addon
+  description: Optional Charlie Recruit add-on subscription.
+  unit: subscription
+  aggregation: max
+  dimensions:
+  - company
+- name: advice_addon
+  description: Optional Charlie Advice add-on subscription.
+  unit: subscription
+  aggregation: max
+  dimensions:
+  - company
+principles:
+- name: Visibility
+  description: Track the active headcount bracket and any add-ons against the monthly CharlieHR invoice.
+- name: Allocation
+  description: Map the company subscription and add-ons to the HR / People cost center.
+- name: Optimization
+  description: Right-size seats, archive offboarded team members promptly, and review whether Recruit / Advice add-ons are still needed.
+- name: Accountability
+  description: Assign an owner (typically People / Ops) to review the CharlieHR subscription tier monthly as headcount changes.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CharlieHR API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Team Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/team_members"
+          },
+          "docs": "Returns all of the authenticated company's team members. Supports page and per_page pagination."
+        },
+        {
+          "info": {
+            "name": "Get a team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/team_members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the team member."
+              }
+            ]
+          },
+          "docs": "Returns a single team member belonging to the authenticated company."
+        },
+        {
+          "info": {
+            "name": "List a team member's notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/team_members/:id/notes",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the team member."
+              }
+            ]
+          },
+          "docs": "Returns the notes associated with a given team member."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Leave / Absences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List leave requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/leave_requests"
+          },
+          "docs": "Returns all leave requests for the currently authenticated company. Supports page and per_page pagination."
+        },
+        {
+          "info": {
+            "name": "Get a leave request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/leave_requests/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the leave request."
+              }
+            ]
+          },
+          "docs": "Returns a single leave request from the authenticated company."
+        },
+        {
+          "info": {
+            "name": "List a team member's leave requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/team_members/:id/leave_requests",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the team member."
+              }
+            ]
+          },
+          "docs": "Returns the leave requests for a specific team member."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Leave Allowances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List leave allowances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/leave_allowances"
+          },
+          "docs": "Returns the current leave allowances for all team members in the authenticated company."
+        },
+        {
+          "info": {
+            "name": "Get a team member's leave allowance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/team_members/:id/leave_allowance",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the team member."
+              }
+            ]
+          },
+          "docs": "Returns the current leave allowance for the specified team member."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/company"
+          },
+          "docs": "Returns the record for the authenticated company."
+        },
+        {
+          "info": {
+            "name": "List offices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/offices"
+          },
+          "docs": "Returns the offices defined for the authenticated company."
+        },
+        {
+          "info": {
+            "name": "Get an office",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/offices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the office."
+              }
+            ]
+          },
+          "docs": "Returns a single office belonging to the authenticated company."
+        },
+        {
+          "info": {
+            "name": "List teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/teams"
+          },
+          "docs": "Returns the teams defined for the authenticated company."
+        },
+        {
+          "info": {
+            "name": "Get a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/teams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the team."
+              }
+            ]
+          },
+          "docs": "Returns a single team belonging to the authenticated company."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

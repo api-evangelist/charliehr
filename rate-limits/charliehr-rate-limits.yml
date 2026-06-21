@@ -1,0 +1,50 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: CharlieHR
+providerId: charliehr
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- HR
+- HRIS
+- People
+- Leave
+- Time Off
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  CharlieHR's public API documentation does not publish explicit numeric rate
+  limits. The API is a read-oriented REST interface scoped to a single
+  authenticated company and uses page / per_page pagination to bound response
+  sizes. Specific request-per-minute or per-day quotas are not reconciled in
+  this artifact; clients should implement defensive pagination and backoff.
+notes: >-
+  No documented rate-limit values were available at the time of authoring.
+  Verify whether CharlieHR enforces or documents request quotas (and any
+  Retry-After or 429 behavior) directly with CharlieHR during reconciliation.
+sources:
+- https://www.charliehr.com/api_docs/
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: CharlieHR does not publish explicit per-minute or per-day request limits.
+- name: Page Size
+  scope: request
+  metric: records
+  limit: per_page (paginated)
+  notes: List endpoints return paginated results controlled by the page and per_page query parameters.
+policies:
+- name: Pagination
+  description: Use page and per_page to retrieve large result sets in bounded pages.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor any Retry-After header on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

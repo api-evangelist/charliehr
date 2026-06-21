@@ -1,0 +1,202 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: CharlieHR
+providerId: charliehr
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- HR
+- HRIS
+- People
+- Leave
+- Time Off
+- Plans
+description: >-
+  CharlieHR is priced per company on a headcount-based subscription rather than
+  per API call. There is a single core HR platform plan whose monthly price
+  steps up with the number of team members, plus optional add-ons (Charlie
+  Recruit and Charlie Advice). The REST API is included with the platform
+  subscription; access is governed by OAuth 2.0 credentials, not a separate API
+  fee. Prices are in GBP and exclude UK VAT (+20%).
+notes: >-
+  Pricing tiers and amounts change; verify the current brackets, introductory
+  offers, and VAT treatment on the CharlieHR pricing page during reconciliation.
+  The 1-4 member bracket has been offered at an introductory rate for the first
+  months before reverting to the standard rate.
+sources:
+- https://www.charliehr.com/pricing/
+- https://www.charliehr.com/api_docs/
+plans:
+- id: charliehr-platform
+  name: Charlie (HR Platform)
+  type: subscription
+  description: >-
+    Core HR platform subscription billed monthly per company, stepped by
+    headcount bracket. Includes people management, time off, onboarding,
+    employee records, and REST API access.
+  entries:
+  - label: 1-4 team members
+    name: tier_1_4
+    type: flat
+    metric: subscription
+    limit: 4
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from GBP 20/month (introductory GBP 5/month) ex VAT
+    userMultiplied: false
+  - label: 5-9 team members
+    name: tier_5_9
+    type: flat
+    metric: subscription
+    limit: 9
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 45/month ex VAT
+    userMultiplied: false
+  - label: 10-14 team members
+    name: tier_10_14
+    type: flat
+    metric: subscription
+    limit: 14
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 45/month ex VAT
+    userMultiplied: false
+  - label: 15-29 team members
+    name: tier_15_29
+    type: flat
+    metric: subscription
+    limit: 29
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 105/month ex VAT
+    userMultiplied: false
+  - label: 30-49 team members
+    name: tier_30_49
+    type: flat
+    metric: subscription
+    limit: 49
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 180/month ex VAT
+    userMultiplied: false
+  - label: 50-99 team members
+    name: tier_50_99
+    type: flat
+    metric: subscription
+    limit: 99
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 315/month ex VAT
+    userMultiplied: false
+  - label: 100-149 team members
+    name: tier_100_149
+    type: flat
+    metric: subscription
+    limit: 149
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 420/month ex VAT
+    userMultiplied: false
+  - label: 150-199 team members
+    name: tier_150_199
+    type: flat
+    metric: subscription
+    limit: 199
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 525/month ex VAT
+    userMultiplied: false
+  - label: 200-249 team members
+    name: tier_200_249
+    type: flat
+    metric: subscription
+    limit: 249
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 630/month ex VAT
+    userMultiplied: false
+  - label: 250+ team members
+    name: tier_250_plus
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: GBP 735/month ex VAT
+    userMultiplied: false
+  elements:
+  - name: People Management
+  - name: Time Off / Leave
+  - name: Onboarding
+  - name: Employee Records
+  - name: REST API Access
+- id: charliehr-free-trial
+  name: Free Trial
+  type: trial
+  description: >-
+    7-day free trial of the Charlie HR platform, no credit card required.
+  entries:
+  - label: 7-Day Trial
+    name: trial
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: day
+    geo: global
+    unit: 7
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Full Platform Access (trial)
+- id: charliehr-recruit
+  name: Charlie Recruit (Add-on)
+  type: subscription
+  description: >-
+    Optional applicant tracking / recruiting add-on.
+  entries:
+  - label: Charlie Recruit
+    name: recruit
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from GBP 55/month ex VAT
+    userMultiplied: false
+  elements:
+  - name: Recruiting / ATS
+- id: charliehr-advice
+  name: Charlie Advice (Add-on)
+  type: subscription
+  description: >-
+    Optional HR advice add-on providing access to HR experts.
+  entries:
+  - label: Charlie Advice
+    name: advice
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from GBP 179/month ex VAT
+    userMultiplied: false
+  elements:
+  - name: HR Advice
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

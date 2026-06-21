@@ -1,0 +1,434 @@
+{
+  "info": {
+    "name": "CharlieHR API",
+    "description": "REST API for the CharlieHR small-business HR platform. Read team members, leave requests, leave allowances, and company structure. OAuth 2.0 bearer token auth over https://charliehr.com/api/v1.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://charliehr.com/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Team Members",
+      "item": [
+        {
+          "name": "List team members",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team_members?page=1&per_page=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team_members"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "25"
+                }
+              ]
+            },
+            "description": "Returns all of the authenticated company's team members."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a team member",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team_members/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team_members",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the team member."
+                }
+              ]
+            },
+            "description": "Returns a single team member belonging to the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "List a team member's notes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team_members/:id/notes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team_members",
+                ":id",
+                "notes"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the team member."
+                }
+              ]
+            },
+            "description": "Returns the notes associated with a given team member."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Leave / Absences",
+      "item": [
+        {
+          "name": "List leave requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leave_requests?page=1&per_page=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "leave_requests"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "25"
+                }
+              ]
+            },
+            "description": "Returns all leave requests for the currently authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a leave request",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leave_requests/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "leave_requests",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the leave request."
+                }
+              ]
+            },
+            "description": "Returns a single leave request from the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "List a team member's leave requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team_members/:id/leave_requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team_members",
+                ":id",
+                "leave_requests"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the team member."
+                }
+              ]
+            },
+            "description": "Returns the leave requests for a specific team member."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Leave Allowances",
+      "item": [
+        {
+          "name": "List leave allowances",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/leave_allowances?page=1&per_page=25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "leave_allowances"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "25"
+                }
+              ]
+            },
+            "description": "Returns the current leave allowances for all team members in the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a team member's leave allowance",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/team_members/:id/leave_allowance",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "team_members",
+                ":id",
+                "leave_allowance"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the team member."
+                }
+              ]
+            },
+            "description": "Returns the current leave allowance for the specified team member."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "Get company",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/company",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "company"
+              ]
+            },
+            "description": "Returns the record for the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "List offices",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/offices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices"
+              ]
+            },
+            "description": "Returns the offices defined for the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "Get an office",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/offices/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "offices",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the office."
+                }
+              ]
+            },
+            "description": "Returns a single office belonging to the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "List teams",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams"
+              ]
+            },
+            "description": "Returns the teams defined for the authenticated company."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a team",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/teams/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "teams",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "The unique identifier of the team."
+                }
+              ]
+            },
+            "description": "Returns a single team belonging to the authenticated company."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

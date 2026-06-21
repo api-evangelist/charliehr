@@ -1,0 +1,558 @@
+openapi: 3.0.1
+info:
+  title: CharlieHR API
+  description: >-
+    REST API for the CharlieHR small-business HR platform. Exposes a company's
+    team members, leave requests, leave allowances, and company structure
+    (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client
+    Secret are exchanged for an access token that is sent in the Authorization
+    header. Endpoints and fields documented here reflect CharlieHR's public API
+    documentation; some response field details are not fully published and are
+    represented as free-form objects.
+  termsOfService: https://www.charliehr.com/terms/
+  contact:
+    name: CharlieHR Support
+    url: https://help.charliehr.com/
+  version: '1.0'
+servers:
+  - url: https://charliehr.com/api/v1
+    description: CharlieHR API v1
+security:
+  - oauth2: []
+tags:
+  - name: Team Members
+    description: Company team members and their notes.
+  - name: Leave / Absences
+    description: Leave (time off) requests.
+  - name: Leave Allowances
+    description: Leave allowance balances.
+  - name: Company
+    description: Company record, offices, and teams.
+paths:
+  /team_members:
+    get:
+      operationId: listTeamMembers
+      tags:
+        - Team Members
+      summary: List team members
+      description: >-
+        Returns all of the authenticated company's team members. Supports
+        pagination via the page and per_page query parameters.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of team members.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMemberList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /team_members/{id}:
+    get:
+      operationId: getTeamMember
+      tags:
+        - Team Members
+      summary: Get a team member
+      description: Returns a single team member belonging to the authenticated company.
+      parameters:
+        - $ref: '#/components/parameters/TeamMemberId'
+      responses:
+        '200':
+          description: A single team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMemberResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /team_members/{id}/notes:
+    get:
+      operationId: listTeamMemberNotes
+      tags:
+        - Team Members
+      summary: List a team member's notes
+      description: Returns the notes associated with a given team member.
+      parameters:
+        - $ref: '#/components/parameters/TeamMemberId'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of notes for the team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /team_members/{id}/leave_requests:
+    get:
+      operationId: listTeamMemberLeaveRequests
+      tags:
+        - Leave / Absences
+      summary: List a team member's leave requests
+      description: Returns the leave requests for a specific team member.
+      parameters:
+        - $ref: '#/components/parameters/TeamMemberId'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of leave requests for the team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /team_members/{id}/leave_allowance:
+    get:
+      operationId: getTeamMemberLeaveAllowance
+      tags:
+        - Leave Allowances
+      summary: Get a team member's leave allowance
+      description: Returns the current leave allowance for the specified team member.
+      parameters:
+        - $ref: '#/components/parameters/TeamMemberId'
+      responses:
+        '200':
+          description: The leave allowance for the team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveAllowanceResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /leave_requests:
+    get:
+      operationId: listLeaveRequests
+      tags:
+        - Leave / Absences
+      summary: List leave requests
+      description: >-
+        Returns all leave requests for the currently authenticated company.
+        Supports pagination via the page and per_page query parameters.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of leave requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /leave_requests/{id}:
+    get:
+      operationId: getLeaveRequest
+      tags:
+        - Leave / Absences
+      summary: Get a leave request
+      description: Returns a single leave request from the authenticated company.
+      parameters:
+        - $ref: '#/components/parameters/LeaveRequestId'
+      responses:
+        '200':
+          description: A single leave request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRequestResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /leave_allowances:
+    get:
+      operationId: listLeaveAllowances
+      tags:
+        - Leave Allowances
+      summary: List leave allowances
+      description: >-
+        Returns the current leave allowances for all team members in the
+        authenticated company. Supports pagination via the page and per_page
+        query parameters.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of leave allowances.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveAllowanceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /company:
+    get:
+      operationId: getCompany
+      tags:
+        - Company
+      summary: Get company
+      description: Returns the record for the authenticated company.
+      responses:
+        '200':
+          description: The authenticated company.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /offices:
+    get:
+      operationId: listOffices
+      tags:
+        - Company
+      summary: List offices
+      description: Returns the offices defined for the authenticated company.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of offices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /offices/{id}:
+    get:
+      operationId: getOffice
+      tags:
+        - Company
+      summary: Get an office
+      description: Returns a single office belonging to the authenticated company.
+      parameters:
+        - $ref: '#/components/parameters/OfficeId'
+      responses:
+        '200':
+          description: A single office.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /teams:
+    get:
+      operationId: listTeams
+      tags:
+        - Company
+      summary: List teams
+      description: Returns the teams defined for the authenticated company.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of teams.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /teams/{id}:
+    get:
+      operationId: getTeam
+      tags:
+        - Company
+      summary: Get a team
+      description: Returns a single team belonging to the authenticated company.
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: A single team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0. A Client ID and Client Secret issued in the CharlieHR app are
+        exchanged for an access token, which is sent in the Authorization header
+        of each request.
+      flows:
+        clientCredentials:
+          tokenUrl: https://charliehr.com/oauth/token
+          scopes: {}
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
+      schema:
+        type: string
+    LeaveRequestId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the leave request.
+      schema:
+        type: string
+    OfficeId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the office.
+      schema:
+        type: string
+    TeamId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    TeamMember:
+      type: object
+      description: >-
+        A team member (employee) of the authenticated company. Field set
+        reflects CharlieHR's documented team member object; additional fields
+        may be returned.
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        address:
+          type: string
+        office:
+          type: string
+          description: Identifier or name of the office the team member belongs to.
+        manager:
+          type: string
+          description: Identifier of the team member's manager.
+        teams:
+          type: array
+          items:
+            type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+          nullable: true
+    TeamMemberList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    TeamMemberResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TeamMember'
+    LeaveRequest:
+      type: object
+      description: A single leave (time off) request.
+      properties:
+        id:
+          type: string
+        team_member_id:
+          type: string
+        leave_type:
+          type: string
+          description: The type of leave (for example holiday or sickness).
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        status:
+          type: string
+          description: The approval status of the request.
+        created_at:
+          type: string
+          format: date-time
+    LeaveRequestList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveRequest'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    LeaveRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/LeaveRequest'
+    LeaveAllowance:
+      type: object
+      description: A team member's current leave allowance.
+      properties:
+        team_member_id:
+          type: string
+        leave_type:
+          type: string
+        total:
+          type: number
+        used:
+          type: number
+        remaining:
+          type: number
+        unit:
+          type: string
+          description: The unit of the allowance (for example days or hours).
+    LeaveAllowanceList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveAllowance'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    LeaveAllowanceResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/LeaveAllowance'
+    Company:
+      type: object
+      description: The authenticated company record.
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        country:
+          type: string
+    CompanyResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Company'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+    GenericList:
+      type: object
+      description: >-
+        Generic list envelope used where the per-item schema is not fully
+        published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    GenericResponse:
+      type: object
+      description: >-
+        Generic single-object envelope used where the item schema is not fully
+        published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string

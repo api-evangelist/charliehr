@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/charliehr-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://charliehr.com/oauth/token
+    scopes: 0
+  description: OAuth 2.0. A Client ID and Client Secret issued in the CharlieHR app are exchanged
+    for an access token, which is sent in the Authorization header of each request.
+  sources:
+  - openapi/charliehr-openapi.yml

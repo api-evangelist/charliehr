@@ -98,6 +98,8 @@ apis:
   description: Retrieve the authenticated company record and its organizational structure
     - offices and teams - used to group and locate team members.
 common:
+- type: OAuthScopes
+  url: scopes/charliehr-scopes.yml
 - type: GitHubOrganization
   url: https://github.com/CharlieHR
 - type: LinkedIn
@@ -112,6 +114,8 @@ common:
   url: rate-limits/charliehr-rate-limits.yml
 - type: FinOps
   url: finops/charliehr-finops.yml
+- url: https://www.charliehr.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

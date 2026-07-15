@@ -98,6 +98,8 @@ apis:
   description: Retrieve the authenticated company record and its organizational structure
     - offices and teams - used to group and locate team members.
 common:
+- type: AgenticAccess
+  url: agentic-access/charliehr-agentic-access.yml
 - type: TrustCenter
   url: security/charliehr-trust-center.yml
 - type: DomainSecurity

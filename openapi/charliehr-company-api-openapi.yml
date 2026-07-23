@@ -1,0 +1,225 @@
+openapi: 3.0.1
+info:
+  title: CharlieHR Company API
+  description: 'REST API for the CharlieHR small-business HR platform. Exposes a company''s team members, leave requests, leave allowances, and company structure (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client Secret are exchanged for an access token that is sent in the Authorization header. Endpoints and fields documented here reflect CharlieHR''s public API documentation; some response field details are not fully published and are represented as free-form objects.'
+  termsOfService: https://www.charliehr.com/terms/
+  contact:
+    name: CharlieHR Support
+    url: https://help.charliehr.com/
+  version: '1.0'
+servers:
+- url: https://charliehr.com/api/v1
+  description: CharlieHR API v1
+security:
+- oauth2: []
+tags:
+- name: Company
+  description: Company record, offices, and teams.
+paths:
+  /company:
+    get:
+      operationId: getCompany
+      tags:
+      - Company
+      summary: Get company
+      description: Returns the record for the authenticated company.
+      responses:
+        '200':
+          description: The authenticated company.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /offices:
+    get:
+      operationId: listOffices
+      tags:
+      - Company
+      summary: List offices
+      description: Returns the offices defined for the authenticated company.
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of offices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /offices/{id}:
+    get:
+      operationId: getOffice
+      tags:
+      - Company
+      summary: Get an office
+      description: Returns a single office belonging to the authenticated company.
+      parameters:
+      - $ref: '#/components/parameters/OfficeId'
+      responses:
+        '200':
+          description: A single office.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /teams:
+    get:
+      operationId: listTeams
+      tags:
+      - Company
+      summary: List teams
+      description: Returns the teams defined for the authenticated company.
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of teams.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /teams/{id}:
+    get:
+      operationId: getTeam
+      tags:
+      - Company
+      summary: Get a team
+      description: Returns a single team belonging to the authenticated company.
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: A single team.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    GenericResponse:
+      type: object
+      description: Generic single-object envelope used where the item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          additionalProperties: true
+    Company:
+      type: object
+      description: The authenticated company record.
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        country:
+          type: string
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+    GenericList:
+      type: object
+      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    CompanyResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Company'
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
+    TeamId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team.
+      schema:
+        type: string
+    OfficeId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the office.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0. A Client ID and Client Secret issued in the CharlieHR app are exchanged for an access token, which is sent in the Authorization header of each request.
+      flows:
+        clientCredentials:
+          tokenUrl: https://charliehr.com/oauth/token
+          scopes: {}

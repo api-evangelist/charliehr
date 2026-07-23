@@ -1,0 +1,211 @@
+openapi: 3.0.1
+info:
+  title: CharlieHR Company Team Members API
+  description: 'REST API for the CharlieHR small-business HR platform. Exposes a company''s team members, leave requests, leave allowances, and company structure (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client Secret are exchanged for an access token that is sent in the Authorization header. Endpoints and fields documented here reflect CharlieHR''s public API documentation; some response field details are not fully published and are represented as free-form objects.'
+  termsOfService: https://www.charliehr.com/terms/
+  contact:
+    name: CharlieHR Support
+    url: https://help.charliehr.com/
+  version: '1.0'
+servers:
+- url: https://charliehr.com/api/v1
+  description: CharlieHR API v1
+security:
+- oauth2: []
+tags:
+- name: Team Members
+  description: Company team members and their notes.
+paths:
+  /team_members:
+    get:
+      operationId: listTeamMembers
+      tags:
+      - Team Members
+      summary: List team members
+      description: Returns all of the authenticated company's team members. Supports pagination via the page and per_page query parameters.
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of team members.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMemberList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /team_members/{id}:
+    get:
+      operationId: getTeamMember
+      tags:
+      - Team Members
+      summary: Get a team member
+      description: Returns a single team member belonging to the authenticated company.
+      parameters:
+      - $ref: '#/components/parameters/TeamMemberId'
+      responses:
+        '200':
+          description: A single team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMemberResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /team_members/{id}/notes:
+    get:
+      operationId: listTeamMemberNotes
+      tags:
+      - Team Members
+      summary: List a team member's notes
+      description: Returns the notes associated with a given team member.
+      parameters:
+      - $ref: '#/components/parameters/TeamMemberId'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of notes for the team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
+      schema:
+        type: string
+  schemas:
+    TeamMemberList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+    GenericList:
+      type: object
+      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    TeamMemberResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TeamMember'
+    TeamMember:
+      type: object
+      description: A team member (employee) of the authenticated company. Field set reflects CharlieHR's documented team member object; additional fields may be returned.
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        address:
+          type: string
+        office:
+          type: string
+          description: Identifier or name of the office the team member belongs to.
+        manager:
+          type: string
+          description: Identifier of the team member's manager.
+        teams:
+          type: array
+          items:
+            type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+          nullable: true
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0. A Client ID and Client Secret issued in the CharlieHR app are exchanged for an access token, which is sent in the Authorization header of each request.
+      flows:
+        clientCredentials:
+          tokenUrl: https://charliehr.com/oauth/token
+          scopes: {}

@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: CharlieHR Company Leave Allowances API
+  description: 'REST API for the CharlieHR small-business HR platform. Exposes a company''s team members, leave requests, leave allowances, and company structure (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client Secret are exchanged for an access token that is sent in the Authorization header. Endpoints and fields documented here reflect CharlieHR''s public API documentation; some response field details are not fully published and are represented as free-form objects.'
+  termsOfService: https://www.charliehr.com/terms/
+  contact:
+    name: CharlieHR Support
+    url: https://help.charliehr.com/
+  version: '1.0'
+servers:
+- url: https://charliehr.com/api/v1
+  description: CharlieHR API v1
+security:
+- oauth2: []
+tags:
+- name: Leave Allowances
+  description: Leave allowance balances.
+paths:
+  /team_members/{id}/leave_allowance:
+    get:
+      operationId: getTeamMemberLeaveAllowance
+      tags:
+      - Leave Allowances
+      summary: Get a team member's leave allowance
+      description: Returns the current leave allowance for the specified team member.
+      parameters:
+      - $ref: '#/components/parameters/TeamMemberId'
+      responses:
+        '200':
+          description: The leave allowance for the team member.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveAllowanceResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /leave_allowances:
+    get:
+      operationId: listLeaveAllowances
+      tags:
+      - Leave Allowances
+      summary: List leave allowances
+      description: Returns the current leave allowances for all team members in the authenticated company. Supports pagination via the page and per_page query parameters.
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of leave allowances.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveAllowanceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    LeaveAllowance:
+      type: object
+      description: A team member's current leave allowance.
+      properties:
+        team_member_id:
+          type: string
+        leave_type:
+          type: string
+        total:
+          type: number
+        used:
+          type: number
+        remaining:
+          type: number
+        unit:
+          type: string
+          description: The unit of the allowance (for example days or hours).
+    LeaveAllowanceResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/LeaveAllowance'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+    LeaveAllowanceList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveAllowance'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0. A Client ID and Client Secret issued in the CharlieHR app are exchanged for an access token, which is sent in the Authorization header of each request.
+      flows:
+        clientCredentials:
+          tokenUrl: https://charliehr.com/oauth/token
+          scopes: {}

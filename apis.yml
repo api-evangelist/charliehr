@@ -6,7 +6,20 @@ description: CharlieHR is a small-business HR platform that handles people manag
   time off, onboarding, and employee records. Its REST API exposes a company's team
   members, leave requests, leave allowances, and company structure (offices and teams)
   using OAuth 2.0 client credentials over HTTPS.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/charliehr.png
 tags:
 - HR
 - HRIS
@@ -17,86 +30,70 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: charliehr:team-members
-  name: CharlieHR Team Members
-  tags:
-  - Team Members
-  - Employees
-  - People
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: charliehr:charliehr-company-api
+  name: CharlieHR Company API
+  description: Company record, offices, and teams.
   humanURL: https://www.charliehr.com/api_docs/
   baseURL: https://charliehr.com/api/v1
-  properties:
-  - url: https://www.charliehr.com/api_docs/
-    type: Documentation
-  - url: openapi/charliehr-openapi.yml
-    type: OpenAPI
-  - url: collections/charliehr.postman_collection.json
-    type: PostmanCollection
-  - url: collections/charliehr.opencollection.json
-    type: OpenCollection
-  description: Read a company's team members, individual team member records, and
-    their associated notes, with pagination support.
-- aid: charliehr:leave-absences
-  name: CharlieHR Leave / Absences
-  tags:
-  - Leave
-  - Absences
-  - Time Off
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.charliehr.com/api_docs/
-  baseURL: https://charliehr.com/api/v1
-  properties:
-  - url: https://www.charliehr.com/api_docs/
-    type: Documentation
-  - url: openapi/charliehr-openapi.yml
-    type: OpenAPI
-  - url: collections/charliehr.postman_collection.json
-    type: PostmanCollection
-  - url: collections/charliehr.opencollection.json
-    type: OpenCollection
-  description: List and retrieve leave requests across the company or for a single
-    team member, including request dates, status, and leave type.
-- aid: charliehr:leave-allowances
-  name: CharlieHR Leave Allowances
-  tags:
-  - Leave Allowances
-  - Balances
-  - Time Off
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.charliehr.com/api_docs/
-  baseURL: https://charliehr.com/api/v1
-  properties:
-  - url: https://www.charliehr.com/api_docs/
-    type: Documentation
-  - url: openapi/charliehr-openapi.yml
-    type: OpenAPI
-  - url: collections/charliehr.postman_collection.json
-    type: PostmanCollection
-  - url: collections/charliehr.opencollection.json
-    type: OpenCollection
-  description: List current leave allowances for all team members or fetch the leave
-    allowance for a specific team member.
-- aid: charliehr:company
-  name: CharlieHR Company
   tags:
   - Company
-  - Offices
-  - Teams
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/charliehr-company-api-openapi.yml
+  - type: Documentation
+    url: https://www.charliehr.com/api_docs/
+  - type: PostmanCollection
+    url: collections/charliehr.postman_collection.json
+  - type: OpenCollection
+    url: collections/charliehr.opencollection.json
+- aid: charliehr:charliehr-leave-absences-api
+  name: CharlieHR Leave / Absences API
+  description: Leave (time off) requests.
   humanURL: https://www.charliehr.com/api_docs/
   baseURL: https://charliehr.com/api/v1
+  tags:
+  - Leave / Absences
   properties:
-  - url: https://www.charliehr.com/api_docs/
-    type: Documentation
-  - url: openapi/charliehr-openapi.yml
-    type: OpenAPI
-  - url: collections/charliehr.postman_collection.json
-    type: PostmanCollection
-  - url: collections/charliehr.opencollection.json
-    type: OpenCollection
-  description: Retrieve the authenticated company record and its organizational structure
-    - offices and teams - used to group and locate team members.
+  - type: OpenAPI
+    url: openapi/charliehr-leave-absences-api-openapi.yml
+  - type: Documentation
+    url: https://www.charliehr.com/api_docs/
+  - type: PostmanCollection
+    url: collections/charliehr.postman_collection.json
+  - type: OpenCollection
+    url: collections/charliehr.opencollection.json
+- aid: charliehr:charliehr-leave-allowances-api
+  name: CharlieHR Leave Allowances API
+  description: Leave allowance balances.
+  humanURL: https://www.charliehr.com/api_docs/
+  baseURL: https://charliehr.com/api/v1
+  tags:
+  - Leave Allowances
+  properties:
+  - type: OpenAPI
+    url: openapi/charliehr-leave-allowances-api-openapi.yml
+  - type: Documentation
+    url: https://www.charliehr.com/api_docs/
+  - type: PostmanCollection
+    url: collections/charliehr.postman_collection.json
+  - type: OpenCollection
+    url: collections/charliehr.opencollection.json
+- aid: charliehr:charliehr-team-members-api
+  name: CharlieHR Team Members API
+  description: Company team members and their notes.
+  humanURL: https://www.charliehr.com/api_docs/
+  baseURL: https://charliehr.com/api/v1
+  tags:
+  - Team Members
+  properties:
+  - type: OpenAPI
+    url: openapi/charliehr-team-members-api-openapi.yml
+  - type: Documentation
+    url: https://www.charliehr.com/api_docs/
+  - type: PostmanCollection
+    url: collections/charliehr.postman_collection.json
+  - type: OpenCollection
+    url: collections/charliehr.opencollection.json
 common:
 - type: AgenticAccess
   url: agentic-access/charliehr-agentic-access.yml

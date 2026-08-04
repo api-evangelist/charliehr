@@ -1,0 +1,20 @@
+{
+  "provider": "charliehr",
+  "sources": [
+    "charliehr-company-api-openapi.yml",
+    "charliehr-leave-absences-api-openapi.yml",
+    "charliehr-leave-allowances-api-openapi.yml",
+    "charliehr-team-members-api-openapi.yml"
+  ],
+  "outputs": [
+    "charliehr-company-api-openapi.yml",
+    "charliehr-leave-absences-api-openapi.yml",
+    "charliehr-leave-allowances-api-openapi.yml",
+    "charliehr-team-members-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CharlieHR Company Leave Allowances API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://charliehr.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leave Allowances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a team member's leave allowance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/team_members/:id/leave_allowance",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the team member."
+              }
+            ]
+          },
+          "docs": "Returns the current leave allowance for the specified team member."
+        },
+        {
+          "info": {
+            "name": "List leave allowances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://charliehr.com/api/v1/leave_allowances",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return per page."
+              }
+            ]
+          },
+          "docs": "Returns the current leave allowances for all team members in the authenticated company. Supports pagination via the page and per_page query parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

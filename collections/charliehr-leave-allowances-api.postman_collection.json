@@ -1,0 +1,401 @@
+{
+  "item": [
+    {
+      "id": "5aa085df-d4da-412e-93ad-3ff3db33e2de",
+      "name": "Leave Allowances",
+      "description": {
+        "content": "Leave allowance balances.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5460ce85-7e9c-4ac6-9887-e987a288c5f3",
+          "name": "Get a team member's leave allowance",
+          "request": {
+            "name": "Get a team member's leave allowance",
+            "description": {
+              "content": "Returns the current leave allowance for the specified team member.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "team_members",
+                ":id",
+                "leave_allowance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the team member."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac07693b-6cdc-49a7-852a-3adc16970495",
+              "name": "The leave allowance for the team member.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "team_members",
+                    ":id",
+                    "leave_allowance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the team member."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"team_member_id\": \"string\",\n    \"leave_type\": \"string\",\n    \"total\": 7148.952522951593,\n    \"used\": 2068.3118111549124,\n    \"remaining\": 5955.926355701051,\n    \"unit\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ad4ca9b-8f81-4859-bcb0-a86a17276b99",
+              "name": "Authentication failed or the access token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "team_members",
+                    ":id",
+                    "leave_allowance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the team member."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc54f276-ab1f-42fa-9af1-4ae9cbcba0ea",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "team_members",
+                    ":id",
+                    "leave_allowance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the team member."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70462bf8-1e8d-43b2-808b-01ef4ff084f7",
+          "name": "List leave allowances",
+          "request": {
+            "name": "List leave allowances",
+            "description": {
+              "content": "Returns the current leave allowances for all team members in the authenticated company. Supports pagination via the page and per_page query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "leave_allowances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Number of records to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d30fab2c-aad1-4f09-8c7f-752d8e04e484",
+              "name": "A paginated list of leave allowances.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leave_allowances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"team_member_id\": \"string\",\n      \"leave_type\": \"string\",\n      \"total\": 8337.955628539343,\n      \"used\": 2781.6116702411,\n      \"remaining\": 6719.115254938449,\n      \"unit\": \"string\"\n    },\n    {\n      \"team_member_id\": \"string\",\n      \"leave_type\": \"string\",\n      \"total\": 3533.363961354925,\n      \"used\": 9653.08666835229,\n      \"remaining\": 7577.5651104484905,\n      \"unit\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"page\": 2595,\n    \"per_page\": 5612,\n    \"total\": 4685\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1f9467f-eb9c-4060-a142-27a8cb570426",
+              "name": "Authentication failed or the access token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leave_allowances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://charliehr.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessTokenUrl",
+        "value": "https://charliehr.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ae07e250-db4e-4952-a9dc-f475f23d9edd",
+    "name": "CharlieHR Company Leave Allowances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the CharlieHR small-business HR platform. Exposes a company's team members, leave requests, leave allowances, and company structure (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client Secret are exchanged for an access token that is sent in the Authorization header. Endpoints and fields documented here reflect CharlieHR's public API documentation; some response field details are not fully published and are represented as free-form objects.\n\nContact Support:\n Name: CharlieHR Support",
+      "type": "text/plain"
+    }
+  }
+}

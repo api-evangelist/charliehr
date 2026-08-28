@@ -6,6 +6,18 @@ description: CharlieHR is a small-business HR platform that handles people manag
   time off, onboarding, and employee records. Its REST API exposes a company's team
   members, leave requests, leave allowances, and company structure (offices and teams)
   using OAuth 2.0 client credentials over HTTPS.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve

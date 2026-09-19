@@ -33,6 +33,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/charliehr.png
 tags:
+- Human Resources
+- HRIS
+- People
+- Leave
+- Time Off
+tags_raw:
 - HR
 - HRIS
 - People

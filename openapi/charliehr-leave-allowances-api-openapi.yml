@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CharlieHR Company Leave Allowances API
+  title: CharlieHR Leave Allowances API
   description: 'REST API for the CharlieHR small-business HR platform. Exposes a company''s team members, leave requests, leave allowances, and company structure (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client Secret are exchanged for an access token that is sent in the Authorization header. Endpoints and fields documented here reflect CharlieHR''s public API documentation; some response field details are not fully published and are represented as free-form objects.'
   termsOfService: https://www.charliehr.com/terms/
   contact:
@@ -56,75 +56,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    LeaveAllowance:
-      type: object
-      description: A team member's current leave allowance.
-      properties:
-        team_member_id:
-          type: string
-        leave_type:
-          type: string
-        total:
-          type: number
-        used:
-          type: number
-        remaining:
-          type: number
-        unit:
-          type: string
-          description: The unit of the allowance (for example days or hours).
-    LeaveAllowanceResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/LeaveAllowance'
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
-    LeaveAllowanceList:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LeaveAllowance'
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    Error:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: string
-        message:
-          type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or the access token is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     PerPage:
       name: per_page
@@ -149,6 +80,75 @@ components:
       description: The unique identifier of the team member.
       schema:
         type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+    LeaveAllowanceList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaveAllowance'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    LeaveAllowanceResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/LeaveAllowance'
+    LeaveAllowance:
+      type: object
+      description: A team member's current leave allowance.
+      properties:
+        team_member_id:
+          type: string
+        leave_type:
+          type: string
+        total:
+          type: number
+        used:
+          type: number
+        remaining:
+          type: number
+        unit:
+          type: string
+          description: The unit of the allowance (for example days or hours).
+  responses:
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

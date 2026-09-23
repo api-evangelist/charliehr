@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: CharlieHR Company Team Members API
+  title: CharlieHR Team Members API
   description: 'REST API for the CharlieHR small-business HR platform. Exposes a company''s team members, leave requests, leave allowances, and company structure (offices and teams). Authentication uses OAuth 2.0: a Client ID and Client Secret are exchanged for an access token that is sent in the Authorization header. Endpoints and fields documented here reflect CharlieHR''s public API documentation; some response field details are not fully published and are represented as free-form objects.'
   termsOfService: https://www.charliehr.com/terms/
   contact:
@@ -78,85 +78,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or the access token is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
-      schema:
-        type: integer
-        minimum: 1
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        minimum: 1
-    TeamMemberId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the team member.
-      schema:
-        type: string
   schemas:
-    TeamMemberList:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
-    GenericList:
-      type: object
-      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    TeamMemberResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/TeamMember'
     TeamMember:
       type: object
       description: A team member (employee) of the authenticated company. Field set reflects CharlieHR's documented team member object; additional fields may be returned.
@@ -188,9 +110,27 @@ components:
           type: string
           format: date
         end_date:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
+    TeamMemberResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TeamMember'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
     Error:
       type: object
       properties:
@@ -201,6 +141,67 @@ components:
           type: string
         message:
           type: string
+    GenericList:
+      type: object
+      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    TeamMemberList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

@@ -1,10 +1,7 @@
 {
   "provider": "charliehr",
   "sources": [
-    "charliehr-company-api-openapi.yml",
-    "charliehr-leave-absences-api-openapi.yml",
-    "charliehr-leave-allowances-api-openapi.yml",
-    "charliehr-team-members-api-openapi.yml"
+    "_original/charliehr-openapi.yml"
   ],
   "outputs": [
     "charliehr-company-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "charliehr-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "charliehr-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "charliehr-leave-absences-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "charliehr-leave-allowances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "charliehr-team-members-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

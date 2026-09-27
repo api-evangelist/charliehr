@@ -111,7 +111,82 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string
+    Company:
+      type: object
+      description: The authenticated company record.
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        country:
+          type: string
+    GenericResponse:
+      type: object
+      description: Generic single-object envelope used where the item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          additionalProperties: true
+    GenericList:
+      type: object
+      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    CompanyResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Company'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
   parameters:
+    TeamId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team.
+      schema:
+        type: string
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
     OfficeId:
       name: id
       in: path
@@ -127,90 +202,15 @@ components:
       schema:
         type: integer
         minimum: 1
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
-      schema:
-        type: integer
-        minimum: 1
-    TeamId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the team.
-      schema:
-        type: string
-  schemas:
-    Company:
-      type: object
-      description: The authenticated company record.
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        country:
-          type: string
-    Error:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: string
-        message:
-          type: string
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
-    GenericList:
-      type: object
-      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    GenericResponse:
-      type: object
-      description: Generic single-object envelope used where the item schema is not fully published in CharlieHR's documentation.
-      properties:
-        success:
-          type: boolean
-        data:
-          type: object
-          additionalProperties: true
-    CompanyResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Company'
   responses:
-    Unauthorized:
-      description: Authentication failed or the access token is missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
       content:
         application/json:
           schema:

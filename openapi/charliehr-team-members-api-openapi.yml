@@ -79,6 +79,57 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    TeamMemberResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/TeamMember'
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
+          type: string
+    TeamMemberList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    GenericList:
+      type: object
+      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
     TeamMember:
       type: object
       description: A team member (employee) of the authenticated company. Field set reflects CharlieHR's documented team member object; additional fields may be returned.
@@ -114,71 +165,20 @@ components:
           - string
           - 'null'
           format: date
-    TeamMemberResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/TeamMember'
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
-    Error:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: string
-        message:
-          type: string
-    GenericList:
-      type: object
-      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    TeamMemberList:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
-        meta:
-          $ref: '#/components/schemas/Pagination'
   parameters:
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        minimum: 1
     PerPage:
       name: per_page
       in: query
       required: false
       description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
       schema:
         type: integer
         minimum: 1
@@ -190,14 +190,14 @@ components:
       schema:
         type: string
   responses:
-    Unauthorized:
-      description: Authentication failed or the access token is missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
       content:
         application/json:
           schema:

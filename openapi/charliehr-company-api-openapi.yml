@@ -111,17 +111,45 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    TeamId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team.
+      schema:
+        type: string
+    OfficeId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the office.
+      schema:
+        type: string
   schemas:
-    Error:
+    CompanyResponse:
       type: object
       properties:
         success:
           type: boolean
-          example: false
-        error:
-          type: string
-        message:
-          type: string
+        data:
+          $ref: '#/components/schemas/Company'
     Company:
       type: object
       description: The authenticated company record.
@@ -131,6 +159,16 @@ components:
         name:
           type: string
         country:
+          type: string
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+        message:
           type: string
     GenericResponse:
       type: object
@@ -154,13 +192,6 @@ components:
             additionalProperties: true
         meta:
           $ref: '#/components/schemas/Pagination'
-    CompanyResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Company'
     Pagination:
       type: object
       description: Pagination metadata returned with list responses.
@@ -171,46 +202,15 @@ components:
           type: integer
         total:
           type: integer
-  parameters:
-    TeamId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the team.
-      schema:
-        type: string
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
-      schema:
-        type: integer
-        minimum: 1
-    OfficeId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the office.
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        minimum: 1
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or the access token is missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

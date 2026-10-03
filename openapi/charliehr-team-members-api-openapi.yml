@@ -79,6 +79,17 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    TeamMemberList:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMember'
+        meta:
+          $ref: '#/components/schemas/Pagination'
     TeamMemberResponse:
       type: object
       properties:
@@ -96,40 +107,6 @@ components:
           type: string
         message:
           type: string
-    TeamMemberList:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMember'
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    GenericList:
-      type: object
-      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        meta:
-          $ref: '#/components/schemas/Pagination'
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
     TeamMember:
       type: object
       description: A team member (employee) of the authenticated company. Field set reflects CharlieHR's documented team member object; additional fields may be returned.
@@ -165,15 +142,37 @@ components:
           - string
           - 'null'
           format: date
+    GenericList:
+      type: object
+      description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
   parameters:
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
       schema:
-        type: integer
-        minimum: 1
+        type: string
     Page:
       name: page
       in: query
@@ -182,22 +181,23 @@ components:
       schema:
         type: integer
         minimum: 1
-    TeamMemberId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the team member.
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
       schema:
-        type: string
+        type: integer
+        minimum: 1
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication failed or the access token is missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or the access token is missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

@@ -1,0 +1,59 @@
+slug: charliehr
+provider: CharlieHR
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Team Members
+  spec_file: charliehr-team-members-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.85
+  evidence: '"GET /team_members/{id} getTeamMember", "GET /team_members/{id}/notes listTeamMemberNotes";
+    schema "TeamMember"'
+  reason: Employee master records (team members plus HR notes) exposed by an HR platform — this is employee-record
+    keeping / HR service delivery. Tag is the vendor's word for employees, confirmed by the TeamMember
+    schema and the vendor's 'employee records' description.
+- tag: Leave Allowances
+  spec_file: charliehr-leave-allowances-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.8
+  evidence: '"GET /team_members/{id}/leave_allowance getTeamMemberLeaveAllowance Get a team member''s
+    leave allowance"'
+  reason: Leave allowances are per-employee time-off entitlements in an HR platform — plainly Human Capital
+    Management. Genuinely split between Compensation & Benefits Management (entitlement) and HR Operations
+    Management (administration), so mapped at L1 only.
+- tag: Leave / Absences
+  spec_file: charliehr-leave-absences-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.75
+  evidence: '"GET /leave_requests listLeaveRequests List leave requests"; schema "LeaveRequest"'
+  reason: Leave/absence request administration for employees in a small-business HR platform is time-off
+    administration, an HR service-delivery/operations function. Some chance the intended sub-capability
+    is Compensation & Benefits (leave as an entitlement), hence not higher confidence.
+- tag: Company
+  spec_file: charliehr-company-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.7
+  evidence: '"GET /offices listOffices List offices", "GET /teams listTeams List teams" — "company structure
+    (offices and teams)"'
+  reason: Within an HR platform, these endpoints expose the organisational structure (company, offices,
+    teams) that employee records hang off. That sits under Human Capital Management, but the operations
+    are pure org-structure reads and do not clearly name a specific sub-capability (not records administration,
+    not workforce planning), so L1 only.

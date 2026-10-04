@@ -113,6 +113,9 @@ apis:
   - type: OpenCollection
     url: collections/charliehr.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/charliehr-capability-edges.yml
+  name: CharlieHR Business Capability Map
 - type: AgenticAccess
   url: agentic-access/charliehr-agentic-access.yml
 - type: TrustCenter

@@ -112,16 +112,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
     GenericList:
       type: object
       description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
@@ -135,6 +125,15 @@ components:
             additionalProperties: true
         meta:
           $ref: '#/components/schemas/Pagination'
+    GenericResponse:
+      type: object
+      description: Generic single-object envelope used where the item schema is not fully published in CharlieHR's documentation.
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          additionalProperties: true
     Error:
       type: object
       properties:
@@ -145,15 +144,6 @@ components:
           type: string
         message:
           type: string
-    GenericResponse:
-      type: object
-      description: Generic single-object envelope used where the item schema is not fully published in CharlieHR's documentation.
-      properties:
-        success:
-          type: boolean
-        data:
-          type: object
-          additionalProperties: true
     CompanyResponse:
       type: object
       properties:
@@ -161,6 +151,16 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/Company'
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
     Company:
       type: object
       description: The authenticated company record.
@@ -185,6 +185,21 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    OfficeId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the office.
+      schema:
+        type: string
     Page:
       name: page
       in: query
@@ -200,21 +215,6 @@ components:
       description: The unique identifier of the team.
       schema:
         type: string
-    OfficeId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the office.
-      schema:
-        type: string
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
-      schema:
-        type: integer
-        minimum: 1
   securitySchemes:
     oauth2:
       type: oauth2

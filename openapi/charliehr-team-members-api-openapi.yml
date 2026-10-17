@@ -79,16 +79,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
     GenericList:
       type: object
       description: Generic list envelope used where the per-item schema is not fully published in CharlieHR's documentation.
@@ -112,6 +102,16 @@ components:
           type: string
         message:
           type: string
+    Pagination:
+      type: object
+      description: Pagination metadata returned with list responses.
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
     TeamMemberList:
       type: object
       properties:
@@ -165,6 +165,30 @@ components:
           - string
           - 'null'
           format: date
+  parameters:
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
+      schema:
+        type: string
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -178,30 +202,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    TeamMemberId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the team member.
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        minimum: 1
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
-      schema:
-        type: integer
-        minimum: 1
   securitySchemes:
     oauth2:
       type: oauth2

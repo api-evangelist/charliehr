@@ -78,17 +78,38 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    TeamMemberId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the team member.
+      schema:
+        type: string
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of records to return per page.
+      schema:
+        type: integer
+        minimum: 1
+    LeaveRequestId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the leave request.
+      schema:
+        type: string
+    Page:
+      name: page
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        minimum: 1
   schemas:
-    Pagination:
-      type: object
-      description: Pagination metadata returned with list responses.
-      properties:
-        page:
-          type: integer
-        per_page:
-          type: integer
-        total:
-          type: integer
     Error:
       type: object
       properties:
@@ -99,6 +120,13 @@ components:
           type: string
         message:
           type: string
+    LeaveRequestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/LeaveRequest'
     LeaveRequestList:
       type: object
       properties:
@@ -110,13 +138,16 @@ components:
             $ref: '#/components/schemas/LeaveRequest'
         meta:
           $ref: '#/components/schemas/Pagination'
-    LeaveRequestResponse:
+    Pagination:
       type: object
+      description: Pagination metadata returned with list responses.
       properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/LeaveRequest'
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
     LeaveRequest:
       type: object
       description: A single leave (time off) request.
@@ -140,37 +171,6 @@ components:
         created_at:
           type: string
           format: date-time
-  parameters:
-    LeaveRequestId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the leave request.
-      schema:
-        type: string
-    TeamMemberId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the team member.
-      schema:
-        type: string
-    Page:
-      name: page
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        minimum: 1
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of records to return per page.
-      schema:
-        type: integer
-        minimum: 1
   responses:
     NotFound:
       description: The requested resource was not found.

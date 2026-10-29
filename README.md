@@ -1,4 +1,4 @@
-# CharlieHR (charliehr)
+# CharlieHR
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,114 +66,129 @@
 
 CharlieHR is a small-business HR platform that handles people management, time off, onboarding, and employee records. Its REST API exposes a company's team members, leave requests, leave allowances, and company structure (offices and teams) using OAuth 2.0 client credentials over HTTPS.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/charliehr/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/charliehr/refs/heads/main/apis.yml)
+**Areas:** Human Resources · HRIS · People · Leave · Time Off
 
-## Tags
+## CharlieHR on APIs.io
 
-- HR
-- HRIS
-- People
-- Leave
-- Time Off
+Everything profiled for CharlieHR is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/charliehr/](https://apis.io/providers/charliehr/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [CharlieHR Company API](https://apis.io/apis/charliehr/charliehr-company-api/) — Company record, offices, and teams.
+- [CharlieHR Leave / Absences API](https://apis.io/apis/charliehr/charliehr-leave-absences-api/) — Leave (time off) requests.
+- [CharlieHR Leave Allowances API](https://apis.io/apis/charliehr/charliehr-leave-allowances-api/) — Leave allowance balances.
+- [CharlieHR Team Members API](https://apis.io/apis/charliehr/charliehr-team-members-api/) — Company team members and their notes.
 
-## APIs
+### Published properties
 
-### CharlieHR Team Members
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Read a company's team members, individual team member records, and their associated notes, with pagination support.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.charliehr.com/api_docs/](https://www.charliehr.com/api_docs/)
-- **Base URL:** `https://charliehr.com/api/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Charliehr Agentic Access](https://apis.io/agentic-access/charliehr/charliehr-agentic-access/)
 
-- Team Members
-- Employees
-- People
+#### Collections (5)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://www.charliehr.com/api_docs/)
-- [OpenAPI](openapi/charliehr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/charliehr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/charliehr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [CharlieHR API](https://apis.io/collections/charliehr/open-charliehr/)
+- [CharlieHR Company API](https://apis.io/collections/charliehr/open-charliehr-company-api/)
+- [CharlieHR Company Leave / Absences API](https://apis.io/collections/charliehr/open-charliehr-leave-absences-api/)
+- [CharlieHR Company Leave Allowances API](https://apis.io/collections/charliehr/open-charliehr-leave-allowances-api/)
+- [CharlieHR Company Team Members API](https://apis.io/collections/charliehr/open-charliehr-team-members-api/)
 
-### CharlieHR Leave / Absences
+#### Security (3)
 
-List and retrieve leave requests across the company or for a single team member, including request dates, status, and leave type.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://www.charliehr.com/api_docs/](https://www.charliehr.com/api_docs/)
-- **Base URL:** `https://charliehr.com/api/v1`
+- [Charliehr Authentication](https://apis.io/security/charliehr/charliehr-authentication/)
+- [Charliehr Domain Security](https://apis.io/security/charliehr/charliehr-domain-security/)
+- [Charliehr Trust Center](https://apis.io/security/charliehr/charliehr-trust-center/)
 
-#### Tags
+#### OAuth scopes (1)
 
-- Leave
-- Absences
-- Time Off
+The permissions the API asks for.
 
-#### Properties
+- [Charliehr Scopes](https://apis.io/scopes/charliehr/charliehr-scopes/)
 
-- [Documentation](https://www.charliehr.com/api_docs/)
-- [OpenAPI](openapi/charliehr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/charliehr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/charliehr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### CharlieHR Leave Allowances
+Published plans, tiers and prices.
 
-List current leave allowances for all team members or fetch the leave allowance for a specific team member.
+- [Charliehr Plans Pricing](https://apis.io/plans/charliehr/charliehr-plans-pricing/)
 
-- **Human URL:** [https://www.charliehr.com/api_docs/](https://www.charliehr.com/api_docs/)
-- **Base URL:** `https://charliehr.com/api/v1`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Leave Allowances
-- Balances
-- Time Off
+- [Charliehr Rate Limits](https://apis.io/rate-limits/charliehr/charliehr-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://www.charliehr.com/api_docs/)
-- [OpenAPI](openapi/charliehr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/charliehr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/charliehr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### CharlieHR Company
+- [Charliehr Finops](https://apis.io/finops/charliehr/charliehr-finops/)
 
-Retrieve the authenticated company record and its organizational structure - offices and teams - used to group and locate team members.
+## Where to find this API
 
-- **Human URL:** [https://www.charliehr.com/api_docs/](https://www.charliehr.com/api_docs/)
-- **Base URL:** `https://charliehr.com/api/v1`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Company
-- Offices
-- Teams
-
-#### Properties
-
-- [Documentation](https://www.charliehr.com/api_docs/)
-- [OpenAPI](openapi/charliehr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/charliehr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/charliehr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/CharlieHR)
-- [LinkedIn](https://www.linkedin.com/company/charliehr)
 - [Website](https://www.charliehr.com/)
 - [Documentation](https://www.charliehr.com/api_docs/)
-- [Plans](plans/charliehr-plans-pricing.yml)
-- [Rate Limits](rate-limits/charliehr-rate-limits.yml)
-- [Fin Ops](finops/charliehr-finops.yml)
+- [Blog](https://www.charliehr.com/blog)
+- [GitHub](https://github.com/CharlieHR)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 49.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 25.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 24.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 26.5** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/charliehr/](https://apis.io/providers/charliehr/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CharlieHR: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/charliehr/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
